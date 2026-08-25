@@ -1,16 +1,9 @@
 library(dplyr)
 library(ggplot2)
-library(corrplot)
 library(rstatix)
-library(lme4)
-library(lmerTest)
-library(DHARMa)
 library(GGally)
 library(tidyverse)
-library(performance)
 library(emmeans)
-library(factoextra)
-
 
 #Creating a data frame
 df <- data.frame(PlantID = factor(all_lines_roots$PlantID),
