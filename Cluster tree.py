@@ -6,30 +6,29 @@ import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.spatial.distance import pdist, squareform
 
-# 1. Загрузите данные из Excel
-file_path = 'C:/Users/yourcluster.xlsx'  # Укажите путь к вашему файлу
+# 1. Upload data from Excel
+file_path = 'C:/Users/yourcluster.xlsx'  # Path to a file
 data = pd.read_excel(file_path)
 
-# 2. Извлеките числовые данные (например, 'Number1' и 'Number2')
-numeric_data = data[['Number1', 'Number2']].values  # Измените в соответствии с вашими данными
-names = data['Name'].values  # Извлекаем имена образцов
+# 2. Extract numeric data (e.g. 'Number1' and 'Number2')
+numeric_data = data[['Number1', 'Number2']].values  # Change according to the uploaded data
+names = data['Name'].values
 
-# 3. Вычислите евклидовы расстояния
-distances = pdist(numeric_data, metric='euclidean')  # Вычисление расстояний
-distance_matrix = squareform(distances)  # Преобразование в матрицу
+# 3. Calculate Euclidean distances
+distances = pdist(numeric_data, metric='euclidean')
+distance_matrix = squareform(distances)
 
-# 4. Сохраните матрицу расстояний в Excel
+# 4. Save distance matrix in Excel
 distance_df = pd.DataFrame(distance_matrix, index=names, columns=names)
 distance_df.to_excel('C:/Users/distance_matrix.xlsx', sheet_name='Distances')
 
-# 5. Выполните иерархическую кластеризацию: single, complete, average, weighted, centroid, median, ward
+# 5. Perform hierarchical clustering methods could be: single, complete, average, weighted, centroid, median, ward
 linked = linkage(numeric_data, method='average')
 
-# 6. Постройте кластерное древо
+# 6. Build a cluster tree
 plt.figure(figsize=(10, 7))
-dendrogram(linked, labels=names)  # Используем названия для меток
+dendrogram(linked, labels=names)
 plt.title("Cluster tree")
 plt.xlabel("Name")
 plt.ylabel("Distance")
 plt.show()
-
