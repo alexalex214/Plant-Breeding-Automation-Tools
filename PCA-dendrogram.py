@@ -7,11 +7,11 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 
 data = pd.read_excel('C:/file_path/1.xlsx')
 
-features = ['Trait 1', 'Trait 2']  # Удалены лишние квадратные скобки
+features = ['Trait 1', 'Trait 2']
 
 pca = PCA(n_components=2)
 
-principal_components = pca.fit_transform(data[features])  # Используйте features без лишних скобок
+principal_components = pca.fit_transform(data[features])
 
 pca_df = pd.DataFrame(principal_components, columns=['PC1', 'PC2'])
 
