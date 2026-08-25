@@ -1,10 +1,10 @@
-#The python script I used for formatting references for the Theoretical and Applied Genetics journal
+#The python script I used for formatting references for the Theoretical and Applied Genetics (TAG) journal
 
 import requests
 
 
 def get_metadata_from_doi(doi):
-    """Получает метаданные статьи по DOI."""
+    """Gets article metadata by DOI."""
     url = f"https://api.crossref.org/works/{doi}"
     response = requests.get(url, headers={"Accept": "application/json"})
     if response.status_code == 200:
@@ -27,21 +27,21 @@ def get_metadata_from_doi(doi):
         pages = data["message"].get("page", "")
         return authors, year, title, journal, volume, issue, pages, doi
     else:
-        print("Ошибка при получении данных. Проверьте DOI.")
+        print("Error retrieving data. Check the DOI.")
         return None
 
 
 def format_reference(authors, year, title, journal, volume, issue, pages, doi):
-    """Форматирует библиографическую ссылку."""
+    """Formats a bibliographic reference."""
     authors_str = ", ".join(authors)
     issue_str = f"({issue})" if issue else ""
     pages_str = f":{pages}" if pages else ""
     return f"{authors_str} ({year}) {title}. {journal} {volume}{issue_str}{pages_str}. https://doi.org/{doi}"
 
 
-doi = input("Введите DOI: ")
+doi = input("Input DOI: ")
 metadata = get_metadata_from_doi(doi)
 if metadata:
     formatted_reference = format_reference(*metadata)
-    print("\nСформированная ссылка:")
+    print("\nFormatted reference:")
     print(formatted_reference)
